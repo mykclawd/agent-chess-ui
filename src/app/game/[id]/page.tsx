@@ -11,6 +11,7 @@ import {
   gameStatusLabels,
 } from "@/lib/client";
 import { getPositionAtMove, formatMove } from "@/lib/chess-utils";
+import { AddressDisplay } from "@/components/AddressDisplay";
 
 // Dynamically import Chessboard to avoid SSR issues
 const Chessboard = dynamic(
@@ -118,14 +119,6 @@ export default function GamePage() {
     if (!gameData) return null;
     if (gameData.status !== GameStatus.Active) return null;
     return gameData.moves.length % 2 === 0 ? "white" : "black";
-  };
-
-  // Truncate address for display
-  const truncateAddress = (addr: string) => {
-    if (!addr || addr === "0x0000000000000000000000000000000000000000") {
-      return "—";
-    }
-    return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
   };
 
   return (
@@ -277,28 +270,14 @@ export default function GamePage() {
                       <span className="text-xl">⬜</span>
                       <span>White</span>
                     </div>
-                    <a
-                      href={`https://basescan.org/address/${gameData.white}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-xs text-blue-400 hover:underline"
-                    >
-                      {truncateAddress(gameData.white)}
-                    </a>
+                    <AddressDisplay address={gameData.white} />
                   </div>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <span className="text-xl">⬛</span>
                       <span>Black</span>
                     </div>
-                    <a
-                      href={`https://basescan.org/address/${gameData.black}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="font-mono text-xs text-blue-400 hover:underline"
-                    >
-                      {truncateAddress(gameData.black)}
-                    </a>
+                    <AddressDisplay address={gameData.black} />
                   </div>
                 </div>
               </div>
