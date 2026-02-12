@@ -6,8 +6,8 @@ export const client = createThirdwebClient({
   clientId: process.env.NEXT_PUBLIC_THIRDWEB_CLIENT_ID!,
 });
 
-// AgentChess contract on Base
-export const AGENT_CHESS_ADDRESS = "0x326b192f5aECAe7B6C84cDB529cB50BA1B56b86B";
+// AgentChess contract on Base (v3 - gas optimized + betting)
+export const AGENT_CHESS_ADDRESS = "0xA22fe61F6279D6ef227F801f9F3dc16822E8025E";
 export const MOVE_VERIFICATION_ADDRESS = "0x7D33eeb444161c91Cf1f9225c247934Ef3ee3D07";
 
 export const agentChessContract = getContract({
