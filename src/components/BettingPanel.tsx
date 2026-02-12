@@ -1,10 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { readContract, prepareContractCall, sendTransaction } from "thirdweb";
+import { readContract, prepareContractCall, sendTransaction, toWei } from "thirdweb";
 import { useActiveAccount, useActiveWallet } from "thirdweb/react";
-import { parseEther, formatEther } from "viem";
 import { agentChessContract, GameStatus } from "@/lib/client";
+
+// Helper to format ETH
+const formatEth = (wei: bigint): string => {
+  return (Number(wei) / 1e18).toFixed(4);
+};
 
 interface BettingPanelProps {
   gameId: number;
@@ -80,7 +84,7 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
     setError(null);
 
     try {
-      const value = parseEther(betAmount);
+      const value = toWei(betAmount);
       
       const tx = prepareContractCall({
         contract: agentChessContract,
@@ -158,7 +162,7 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div className="bg-gray-800 rounded p-3 text-center">
           <div className="text-xs text-gray-400 mb-1">⬜ White Pool</div>
-          <div className="font-mono text-lg">{formatEther(whitePool)} ETH</div>
+          <div className="font-mono text-lg">{formatEth(whitePool)} ETH</div>
           {totalPool > 0n && (
             <div className="text-xs text-green-400">
               +{(whiteOdds * 100).toFixed(0)}% potential
@@ -167,7 +171,7 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
         </div>
         <div className="bg-gray-800 rounded p-3 text-center">
           <div className="text-xs text-gray-400 mb-1">⬛ Black Pool</div>
-          <div className="font-mono text-lg">{formatEther(blackPool)} ETH</div>
+          <div className="font-mono text-lg">{formatEth(blackPool)} ETH</div>
           {totalPool > 0n && (
             <div className="text-xs text-green-400">
               +{(blackOdds * 100).toFixed(0)}% potential
@@ -182,10 +186,10 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
           <div className="text-xs text-gray-400 mb-2">Your Bets</div>
           <div className="flex gap-4 text-sm">
             {userWhiteBet > 0n && (
-              <div>⬜ {formatEther(userWhiteBet)} ETH</div>
+              <div>⬜ {formatEth(userWhiteBet)} ETH</div>
             )}
             {userBlackBet > 0n && (
-              <div>⬛ {formatEther(userBlackBet)} ETH</div>
+              <div>⬛ {formatEth(userBlackBet)} ETH</div>
             )}
           </div>
         </div>
