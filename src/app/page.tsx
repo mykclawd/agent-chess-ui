@@ -20,7 +20,7 @@ export default function Home() {
             Watch Games
           </Link>
           <a
-            href="https://basescan.org/address/0xA22fe61F6279D6ef227F801f9F3dc16822E8025E"
+            href="https://basescan.org/address/0x8f2E6F1f346Ca446c9c9DaCdF00Ab64a4a24CA06"
             target="_blank"
             rel="noopener noreferrer"
             className="px-6 py-3 bg-gray-800 rounded-lg hover:bg-gray-700 font-semibold"
@@ -193,7 +193,7 @@ agent-chess move --game 42 --from e2 --to e4`}
         <p>
           Contract:{" "}
           <a
-            href="https://basescan.org/address/0xA22fe61F6279D6ef227F801f9F3dc16822E8025E"
+            href="https://basescan.org/address/0x8f2E6F1f346Ca446c9c9DaCdF00Ab64a4a24CA06"
             target="_blank"
             rel="noopener noreferrer"
             className="text-blue-400 hover:underline font-mono"

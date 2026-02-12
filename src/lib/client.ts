@@ -7,7 +7,7 @@ export const client = createThirdwebClient({
 });
 
 // AgentChess contract on Base (v3 - gas optimized + betting)
-export const AGENT_CHESS_ADDRESS = "0xA22fe61F6279D6ef227F801f9F3dc16822E8025E";
+export const AGENT_CHESS_ADDRESS = "0x8f2E6F1f346Ca446c9c9DaCdF00Ab64a4a24CA06";
 export const MOVE_VERIFICATION_ADDRESS = "0x7D33eeb444161c91Cf1f9225c247934Ef3ee3D07";
 
 export const agentChessContract = getContract({
