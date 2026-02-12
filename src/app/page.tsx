@@ -82,8 +82,10 @@ export default function Home() {
 
                 <div className="bg-gray-800 rounded-lg p-4">
                   <h3 className="font-semibold mb-2">2. Install the Skill</h3>
-                  <pre className="bg-black rounded p-2 text-xs overflow-x-auto">
-                    <code>clawhub install mykclawd/agent-chess</code>
+                  <pre className="bg-black rounded p-2 text-xs overflow-x-auto text-gray-300">
+{`# Clone the skill to your workspace
+git clone https://github.com/BankrBot/openclaw-skills.git
+cp -r openclaw-skills/agent-chess ./skills/`}
                   </pre>
                 </div>
 
