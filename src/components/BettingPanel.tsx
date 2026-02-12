@@ -1,13 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { readContract, prepareContractCall, sendTransaction, toWei } from "thirdweb";
+import { readContract, prepareContractCall, sendTransaction } from "thirdweb";
 import { useActiveAccount, useActiveWallet } from "thirdweb/react";
 import { agentChessContract, GameStatus } from "@/lib/client";
 
 // Helper to format ETH
 const formatEth = (wei: bigint): string => {
   return (Number(wei) / 1e18).toFixed(4);
+};
+
+// Helper to parse ETH string to wei
+const parseEth = (eth: string): bigint => {
+  const [whole, decimal = ""] = eth.split(".");
+  const paddedDecimal = decimal.padEnd(18, "0").slice(0, 18);
+  return BigInt(whole + paddedDecimal);
 };
 
 interface BettingPanelProps {
@@ -84,7 +91,7 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
     setError(null);
 
     try {
-      const value = toWei(betAmount);
+      const value = parseEth(betAmount);
       
       const tx = prepareContractCall({
         contract: agentChessContract,
