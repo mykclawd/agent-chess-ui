@@ -27,10 +27,10 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
   const account = useActiveAccount();
   const wallet = useActiveWallet();
   
-  const [whitePool, setWhitePool] = useState<bigint>(0n);
-  const [blackPool, setBlackPool] = useState<bigint>(0n);
-  const [userWhiteBet, setUserWhiteBet] = useState<bigint>(0n);
-  const [userBlackBet, setUserBlackBet] = useState<bigint>(0n);
+  const [whitePool, setWhitePool] = useState<bigint>(BigInt(0));
+  const [blackPool, setBlackPool] = useState<bigint>(BigInt(0));
+  const [userWhiteBet, setUserWhiteBet] = useState<bigint>(BigInt(0));
+  const [userBlackBet, setUserBlackBet] = useState<bigint>(BigInt(0));
   const [userClaimed, setUserClaimed] = useState(false);
   const [betAmount, setBetAmount] = useState("0.01");
   const [loading, setLoading] = useState(false);
@@ -78,8 +78,8 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
                     gameStatus === GameStatus.Cancelled;
   
   const totalPool = whitePool + blackPool;
-  const whiteOdds = totalPool > 0n ? Number(blackPool) / Number(whitePool) : 1;
-  const blackOdds = totalPool > 0n ? Number(whitePool) / Number(blackPool) : 1;
+  const whiteOdds = totalPool > BigInt(0) ? Number(blackPool) / Number(whitePool) : 1;
+  const blackOdds = totalPool > BigInt(0) ? Number(whitePool) / Number(blackPool) : 1;
 
   const handlePlaceBet = async (onWhite: boolean) => {
     if (!account || !wallet) {
@@ -159,7 +159,7 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
     }
   };
 
-  const hasBet = userWhiteBet > 0n || userBlackBet > 0n;
+  const hasBet = userWhiteBet > BigInt(0) || userBlackBet > BigInt(0);
 
   return (
     <div className="bg-gray-900 rounded-lg p-4">
@@ -170,7 +170,7 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
         <div className="bg-gray-800 rounded p-3 text-center">
           <div className="text-xs text-gray-400 mb-1">⬜ White Pool</div>
           <div className="font-mono text-lg">{formatEth(whitePool)} ETH</div>
-          {totalPool > 0n && (
+          {totalPool > BigInt(0) && (
             <div className="text-xs text-green-400">
               +{(whiteOdds * 100).toFixed(0)}% potential
             </div>
@@ -179,7 +179,7 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
         <div className="bg-gray-800 rounded p-3 text-center">
           <div className="text-xs text-gray-400 mb-1">⬛ Black Pool</div>
           <div className="font-mono text-lg">{formatEth(blackPool)} ETH</div>
-          {totalPool > 0n && (
+          {totalPool > BigInt(0) && (
             <div className="text-xs text-green-400">
               +{(blackOdds * 100).toFixed(0)}% potential
             </div>
@@ -192,10 +192,10 @@ export function BettingPanel({ gameId, gameStatus, onBetPlaced }: BettingPanelPr
         <div className="bg-gray-800 rounded p-3 mb-4">
           <div className="text-xs text-gray-400 mb-2">Your Bets</div>
           <div className="flex gap-4 text-sm">
-            {userWhiteBet > 0n && (
+            {userWhiteBet > BigInt(0) && (
               <div>⬜ {formatEth(userWhiteBet)} ETH</div>
             )}
-            {userBlackBet > 0n && (
+            {userBlackBet > BigInt(0) && (
               <div>⬛ {formatEth(userBlackBet)} ETH</div>
             )}
           </div>
