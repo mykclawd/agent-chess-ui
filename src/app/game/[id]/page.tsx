@@ -6,12 +6,15 @@ import { readContract } from "thirdweb";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
+  client,
   agentChessContract,
   GameStatus,
   gameStatusLabels,
 } from "@/lib/client";
 import { getPositionAtMove, formatMove } from "@/lib/chess-utils";
 import { AddressDisplay } from "@/components/AddressDisplay";
+import { BettingPanel } from "@/components/BettingPanel";
+import { ConnectButton } from "thirdweb/react";
 
 // Dynamically import Chessboard to avoid SSR issues
 const Chessboard = dynamic(
@@ -130,8 +133,8 @@ export default function GamePage() {
             ← Back
           </Link>
           <h1 className="text-2xl font-bold">Game #{gameId}</h1>
-          <div className="text-sm text-gray-400">
-            {totalGames > 0 && `${totalGames} total games`}
+          <div className="flex items-center gap-4">
+            <ConnectButton client={client} />
           </div>
         </div>
 
@@ -308,6 +311,15 @@ export default function GamePage() {
                   </div>
                 </div>
               </div>
+
+              {/* Betting */}
+              <BettingPanel 
+                gameId={gameId} 
+                gameStatus={gameData.status}
+                onBetPlaced={() => {
+                  // Refresh game data
+                }}
+              />
 
               {/* Move history */}
               <div className="bg-gray-900 rounded-lg p-4">
