@@ -2,15 +2,20 @@
 
 import { useState, useEffect, use } from "react";
 import { readContract } from "thirdweb";
-import { Chessboard } from "react-chessboard";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import {
-  client,
   agentChessContract,
   GameStatus,
   gameStatusLabels,
 } from "@/lib/client";
-import { replayMoves, getPositionAtMove, formatMove } from "@/lib/chess-utils";
+import { getPositionAtMove, formatMove } from "@/lib/chess-utils";
+
+// Dynamically import Chessboard to avoid SSR issues
+const Chessboard = dynamic(
+  () => import("react-chessboard").then((mod) => mod.Chessboard),
+  { ssr: false, loading: () => <div className="w-[400px] h-[400px] bg-gray-800 animate-pulse rounded" /> }
+);
 
 interface GameData {
   white: string;
