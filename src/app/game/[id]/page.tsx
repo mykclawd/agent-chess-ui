@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect, use } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "next/navigation";
 import { readContract } from "thirdweb";
 import dynamic from "next/dynamic";
 import Link from "next/link";
@@ -28,9 +29,9 @@ interface GameData {
   moves: number[];
 }
 
-export default function GamePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = use(params);
-  const gameId = parseInt(id);
+export default function GamePage() {
+  const params = useParams();
+  const gameId = parseInt(params.id as string);
   
   const [gameData, setGameData] = useState<GameData | null>(null);
   const [currentMoveIndex, setCurrentMoveIndex] = useState<number>(-1);
