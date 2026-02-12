@@ -1,9 +1,8 @@
 import { Chess } from "chess.js";
 
 // Decode uint16 move to from/to squares
-// Format: fromSquare (6 bits) | toSquare (6 bits) | promotionPiece (4 bits)
+// Format: toSquare (bits 0-5) | fromSquare (bits 6-11) | promotionPiece (bits 12-15)
 export function decodeMove(move: number): { from: string; to: string; promotion?: string } {
-  // Contract format: fromPos in bits 6-11, toPos in bits 0-5, promo in bits 12-15
   const toSquare = move & 0x3f;
   const fromSquare = (move >> 6) & 0x3f;
   const promotion = (move >> 12) & 0x0f;
